@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum Hands { ROCK = 1, PAPER, SCISSORS };
+#define ROCK 1
+#define PAPER 2
+#define SCISSORS 3
 
 void gethand(char *a, char *me);
 char win(const char a, const char me);

@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum Hands { ROCK = 1, PAPER, SCISSORS };
+#define ROCK 1
+#define PAPER 2
+#define SCISSORS 3
 
 void gethand(char *a, char *b);
 char win(const char a, const char b);
@@ -11,7 +13,7 @@ int main() {
     int score = 0, total = 0, pos = -4;
     char a = 0, b = 0;
 
-    if (!(file = fopen("02_input.txt", "r"))) {
+    if (!(file = fopen("input.txt", "r"))) {
         puts("FILE DID NOT OPEN");
         exit(EXIT_FAILURE);
     }
