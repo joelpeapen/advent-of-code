@@ -14,11 +14,9 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    while (!feof(file)) {
+    while (fgets(elfCurrent, SIZE, file)) {
         int totalElf = 0;
-        fgets(elfCurrent, SIZE, file);
         printf("\n Elf %i\n -------\n", elfCount);
-        // detect EOF again for last calorie
         for (int i = 1; elfCurrent[0] != '\n' && !feof(file); i++) {
             printf("%2i: %s", i, elfCurrent);
             totalElf += atoi(elfCurrent);

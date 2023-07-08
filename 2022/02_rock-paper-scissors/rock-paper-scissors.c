@@ -10,7 +10,7 @@ char win(const char a, const char b);
 
 int main() {
     FILE* file = NULL;
-    int score = 0, total = 0, pos = -4;
+    int score = 0, total = 0, pos = 0;
     char a = 0, b = 0;
 
     if (!(file = fopen("input.txt", "r"))) {
@@ -18,17 +18,18 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    while (!feof(file)) {
-        fseek(file, pos += 4, SEEK_SET);
-        fscanf(file, "%c %c", &a, &b);
+    while (fscanf(file, "%c %c", &a, &b)) {
+        if (feof(file)) {
+            break;
+        }
         printf("\n%c %c\t", a, b);
         gethand(&a, &b);
         total += win(a, b) + b;
         printf("+ %i\tscore: %i", b, total);
+        fseek(file, pos += 4, SEEK_SET);
     }
 
-    // 6 ∵ fseek at start of while and runs extra time
-    printf("\n\n\tTotal: %i", total - 6);
+    printf("\n\n\tTotal: %i", total);
 }
 
 char win(const char a, const char b) {

@@ -9,16 +9,14 @@ int main() {
     int calories[3] = { 0 }, elves[3] = { 0 }, elfCount = 1;
     char elfCurrent[SIZE]; // char for fgets
 
-    if (!(file = fopen("01_input.txt", "r"))) {
+    if (!(file = fopen("input.txt", "r"))) {
         puts("FILE DID NOT OPEN");
         exit(EXIT_FAILURE);
     }
 
-    while (!feof(file)) {
+    while (fgets(elfCurrent, SIZE, file)) {
         int totalElf = 0;
-        fgets(elfCurrent, SIZE, file);
         printf("\n Elf %i\n -------\n", elfCount);
-        // detect EOF again for last elf calorie
         for (int i = 1; elfCurrent[0] != '\n' && !feof(file); i++) {
             printf("%2i: %s", i, elfCurrent);
             totalElf += atoi(elfCurrent);
