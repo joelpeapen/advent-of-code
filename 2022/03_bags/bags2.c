@@ -3,11 +3,11 @@
 #include <stdlib.h>
 
 int getScore(const char n);
-char search(const char arr[]);
+char search(const char a[], const char b[], const char c[]);
 
 int main() {
     FILE* file = NULL;
-    char line[50];
+    char a[50], b[50], c[50];
     int total = 0;
 
     if (!(file = fopen("input.txt", "r"))) {
@@ -15,17 +15,11 @@ int main() {
         return 1;
     }
 
-    while (fgets(line, sizeof(line), file)) {
-        const char found = search(line);
-        const int len = strlen(line);
-        printf("\nline: ");
-        for (size_t i = 0; i < len; i++) {
-            if (line[i] == found) {
-                printf("(%c)", line[i]);
-            } else {
-                printf("%c", line[i]);
-            }
-        }
+    while (fgets(a, sizeof(a), file)) {
+        fgets(b, sizeof(b), file);
+        fgets(c, sizeof(c), file);
+        printf("\na: %sb: %sc: %s", a, b, c);
+        const char found = search(a, b, c);
         printf("found char: %c\n", found);
         const int s = getScore(found);
         printf("score: %i\n", s);
@@ -35,32 +29,20 @@ int main() {
     printf("\nTotal: %i", total);
 }
 
-char search(const char arr[]) {
-    size_t len = strlen(arr) - 1;
-    size_t mid = len / 2;
-
-    // split
-    char *a = malloc((mid + 1) * sizeof(char));
-    char *b = malloc((len - mid + 1) * sizeof(char));
-
-    strncpy(a, arr, mid);
-    strncpy(b, arr + mid, len - mid + 1);
-
-    // search
-    for (size_t i = 0; i < mid + 1; i++) {
-        char c = a[i];
-        for (size_t j = 0; j < len - mid + 1; j++) {
-            if (a[i] == b[j]) {
-                free(a);
-                free(b);
-                return c;
+char search(const char a[], const char b[], const char c[]) {
+    for (size_t i = 0, len1 = strlen(a); i < len1; i++) {
+        char first = a[i];
+        for (size_t j = 0, len2 = strlen(b); j < len2; j++) {
+            char second = b[j];
+            for (size_t k = 0, len3 = strlen(c); k < len3; k++) {
+                char third = c[k];
+                if (first == second && second == third) {
+                    return first;
+                }
             }
         }
     }
-
-    free(a);
-    free(b);
-    return 0;
+    return '\0';
 }
 
 int getScore(const char n) {

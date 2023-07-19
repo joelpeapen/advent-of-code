@@ -10,7 +10,7 @@ char win(const char a, const char b);
 
 int main() {
     FILE* file = NULL;
-    int score = 0, total = 0, pos = -4;
+    int score = 0, total = 0, pos = 0;
     char a = 0, b = 0;
 
     if (!(file = fopen("input.txt", "r"))) {
