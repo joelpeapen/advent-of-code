@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 #define ROCK 1
 #define PAPER 2
@@ -15,13 +14,10 @@ int main() {
 
     if (!(file = fopen("input.txt", "r"))) {
         puts("FILE DID NOT OPEN");
-        exit(EXIT_FAILURE);
+        return 1;
     }
 
-    while (fscanf(file, "%c %c", &a, &b)) {
-        if (feof(file)) {
-            break;
-        }
+    while (fscanf(file, "%c %c", &a, &b) && !feof(file)) {
         printf("\n%c %c\t", a, b);
         gethand(&a, &b);
         total += win(a, b) + b;
